@@ -432,25 +432,18 @@ vnoremap ' <esc>`>a'<esc>`<i'<esc>`>
 " Functions {{{
 
 " Inserts the character under the cursor until line is len characters long
-function! RepeatUntil(len)
+function! RepeatUntil(len)  " {{{2
     while strlen(getline('.')) < a:len
         exec "normal! vyP"
     endwhile
-endfunction
+endfunction  " }}}2
 
 " delete chars under the cursor until line is len chars long
-function! DeleteUntil(len)
+function! DeleteUntil(len)  " {{{2
     while strlen(getline('.')) > a:len
         exec "normal! x"
     endwhile
-endfunction
+endfunction  " }}}2
 
-" reads from "t" and replaces REPLACE_ME with "sub"
-" function! Template(tmp, sub)
-"     echom a:tmp
-"     execute "read " . a:tmp
-"     silent execute "'[,']s/REPLACE_ME/" . a:sub . "/g"
-" endfunction
-" inoremap <leader><c-z> <esc>u:call Template("template.txt", '.')<cr>
 
 " }}}
