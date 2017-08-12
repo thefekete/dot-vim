@@ -92,11 +92,11 @@ nnoremap <leader>k :nohlsearch<CR>
 " }}}
 " Folding {{{
 
-set foldenable  " enable folding
-set foldlevelstart=10  " default level to open to
-set foldnestmax=10  " max number of nested folds
-set foldmethod=indent  " fold based on indent by default
-set fillchars="fold: "  " get rid of those dashes in fold
+set foldenable                                                  " enable folding
+set foldlevelstart=10                                 " default level to open to
+set foldnestmax=10                                  " max number of nested folds
+set foldmethod=indent                          " fold based on indent by default
+set foldtext=SuperFoldText()                   " ~/.vim/plugin/SuperFoldText.vim
 
 " space opens/closes folds
 nnoremap <space> za
@@ -118,6 +118,66 @@ set complete+=kspell                    " add dictionary when spellcheck enabled
 set path+=**                                     " search sub-dirs for files too
 
 "autocmd! bufwritepost .vimrc source ~/.vimrc         " reload vimrc when saved
+
+" }}}
+" Abbreviations {{{
+
+iabbrev @@ Dan Fekete <thefekete@gmail.com>
+
+" }}}
+" Mappings, Normal mode {{{
+
+" map these to something useful:
+"nnoremap <up> ...
+"nnoremap <down> ...
+"nnoremap <left> ...
+"nnoremap <right> ...
+
+" open vimrc in a split to edit
+nnoremap <leader>ve :split $MYVIMRC<cr>
+" source vimrc
+nnoremap <leader>vs :source $MYVIMRC<cr>
+
+" move to start of line
+nnoremap H ^
+" move to end of line
+nnoremap L $
+
+" move current line down one
+nnoremap - ddp
+" move current line up one
+nnoremap _ ddkP
+
+" switch windows with the ctrl key
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" open next/previous buffers with ctrl-n/b
+nnoremap <C-n> :bnext<cr> 
+nnoremap <C-b> :bprevious<cr> 
+
+" our RepeatUntil() func
+nnoremap <leader><space> :call RepeatWidth()<cr>
+
+" }}}
+" Mappings, Insert mode {{{
+
+" convert word under cursor to uppercase in insert mode
+" use it to type constant names in lowercase, then convert at the end
+inoremap <c-u> <esc>viwUea
+
+" use jk for escape
+inoremap jk <esc>
+
+" }}}
+" Mappings, Visual mode {{{
+
+" visual double quote
+vnoremap " <esc>`>a"<esc>`<i"<esc>`>
+" visual single quote
+vnoremap ' <esc>`>a'<esc>`<i'<esc>`>
 
 " }}}
 " Autocommands, bash-fc {{{
@@ -363,70 +423,6 @@ augroup END
 
 " Or put this at the top:
 " vim: foldmethod=marker:foldlevel=0
-
-" }}}
-" Abbreviations {{{
-
-iabbrev @@ Dan Fekete <thefekete@gmail.com>
-
-" }}}
-" Mappings, Normal mode {{{
-
-" map these to something useful:
-"nnoremap <up> ...
-"nnoremap <down> ...
-"nnoremap <left> ...
-"nnoremap <right> ...
-
-" open vimrc in a split to edit
-nnoremap <leader>ve :split $MYVIMRC<cr>
-" source vimrc
-nnoremap <leader>vs :source $MYVIMRC<cr>
-
-" move to start of line
-nnoremap H ^
-" move to end of line
-nnoremap L $
-
-" move current line down one
-nnoremap - ddp
-" move current line up one
-nnoremap _ ddkP
-
-" " scrolling with ctrl-j/k
-" nnoremap <c-j> 5<c-d> 
-" nnoremap <c-k> 5<c-u> 
-
-" switch windows with the ctrl key
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" open next/previous buffers with ctrl-n/b
-nnoremap <C-n> :bnext<cr> 
-nnoremap <C-b> :bprevious<cr> 
-
-" our RepeatUntil() func
-nnoremap <leader><space> :call RepeatUntil(80)<cr>
-
-" }}}
-" Mappings, Insert mode {{{
-
-" convert word under cursor to uppercase in insert mode
-" use it to type constant names in lowercase, then convert at the end
-inoremap <c-u> <esc>viwUea
-
-" use jk for escape
-inoremap jk <esc>
-
-" }}}
-" Mappings, Visual mode {{{
-
-" visual double quote
-vnoremap " <esc>`>a"<esc>`<i"<esc>`>
-" visual single quote
-vnoremap ' <esc>`>a'<esc>`<i'<esc>`>
 
 " }}}
 " Functions {{{
