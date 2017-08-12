@@ -101,7 +101,7 @@ set fillchars="fold: "  " get rid of those dashes in fold
 " space opens/closes folds
 nnoremap <space> za
 " fold all except current fold (isolate fold)
-nnoremap <leader><space> zMzO
+nnoremap g<space> zMzO
 
 " }}}
 " General Settings {{{
