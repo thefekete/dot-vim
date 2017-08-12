@@ -2,6 +2,25 @@
 " Got a lot of good info from: http://dougblack.io/words/a-good-vimrc.html
 " Tim Pope's vim-sensible plugin has some interesting defaults
 
+" Environment {{{
+" Here we figure set some helper variables so we can tune settings based on
+" 'where' vim is running.
+
+" Hosts
+if hostname() ==# "thinkrad"
+    let g:env_linux=1
+    let g:env_win=0
+elseif hostname() ==# "HTKMNB075"                    " TODO verify this hostname
+    let g:env_linux=1
+    let g:env_win=0
+else
+    " unknown host, no os specific settings
+    let g:env_linux=0
+    let g:env_win=0
+endif
+
+" }}}
+
 " pathogen  {{{
 
 execute pathogen#infect()
