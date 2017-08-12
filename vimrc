@@ -427,18 +427,25 @@ augroup END
 " }}}
 " Functions {{{
 
-" Inserts the character under the cursor until line is len characters long
-function! RepeatUntil(len)  " {{{2
-    while strlen(getline('.')) < a:len
-        exec "normal! vyP"
-    endwhile
+function! RepeatWidth()  "{{{2
+    " Inserts the character under the cursor until line is &textwidth characters long
+    if &textwidth > 0
+        while strlen(getline('.')) < &textwidth
+            exec "normal! vyP"
+        endwhile
+    else
+        echo "textwidth not set, ignoring"
+    endif
 endfunction  " }}}2
-
-" delete chars under the cursor until line is len chars long
-function! DeleteUntil(len)  " {{{2
-    while strlen(getline('.')) > a:len
-        exec "normal! x"
-    endwhile
+function! DeleteWidth()  "{{{2
+    " delete chars under the cursor until line is len chars long
+    if &textwidth > 0
+        while strlen(getline('.')) > &textwidth
+            exec "normal! x"
+        endwhile
+    else
+        echo "textwidth not set, ignoring"
+    endif
 endfunction  " }}}2
 
 
