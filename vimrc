@@ -464,5 +464,24 @@ function! ChangeDirTo()  "{{{2
         echom "file doesn't end with a backslash"
     endif
 endfunction  " }}}2
+function! GetMarkdownFold(lnum)  "{{{2
+    if getline(a:lnum) =~? '\v^\s*$'
+        return '='
+    "elseif getline(a:lnum) =~? '\v^######'
+    "    return '>6'
+    "elseif getline(a:lnum) =~? '\v^#####'
+    "    return '>5'
+    "elseif getline(a:lnum) =~? '\v^####'
+    "    return '>4'
+    "elseif getline(a:lnum) =~? '\v^###'
+    "    return '>3'
+    "elseif getline(a:lnum) =~? '\v^##'
+    "    return '>2'
+    elseif getline(a:lnum) =~? '\v^#'
+        return '>1'
+    else
+        return '='
+    endif
+endfunction  "}}}2
 
 " }}}
