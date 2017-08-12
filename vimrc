@@ -447,6 +447,22 @@ function! DeleteWidth()  "{{{2
         echo "textwidth not set, ignoring"
     endif
 endfunction  " }}}2
-
+function! ChangeDirTo()  "{{{2
+    " windows fix - change working directory if a dir is opened first
+    " this is just so that I can drag a folder onto the nvim.exe and have it open
+    " up as the working directory
+    "
+    " Not needed for MSYS2, but to enable it, put this somewhere:
+    "   au VimEnter * call ChangeDirTo()  " check for dir and change to it
+    echom "hello from ChangeDirTo"
+    echom "file: " @%
+    if @% =~ '\\$'
+        echom "file ends with a backslash!"
+        echom "changing to the opened directory"
+        cd %
+    else
+        echom "file doesn't end with a backslash"
+    endif
+endfunction  " }}}2
 
 " }}}
