@@ -464,6 +464,23 @@ function! ChangeDirTo()  "{{{2
         echom "file doesn't end with a backslash"
     endif
 endfunction  " }}}2
+function! CHSwap()  "{{{2
+    " switches between header and source file
+    " uses :find so will look in path
+    " execute("find " . substitute(expand('%:t'), '.c', '.h',''))
+    if @% =~ '\.c$'
+        echom "In source file, will find header file"
+        execute("find " . substitute(expand('%:t'), '.c', '.h',''))
+    elseif @% =~ '\.h$'
+        echom "In header file, will find source file"
+        execute("find " . substitute(expand('%:t'), '.h', '.c',''))
+    elseif @% =~ '\.cpp$'
+        echom "In header file, will find source file"
+        execute("find " . substitute(expand('%:t'), '.cpp', '.h',''))
+    else
+        echoerr "Not source or header file, not sure what to do here"
+    endif
+endfunction  " }}}2
 function! GetMarkdownFold(lnum)  "{{{2
     if getline(a:lnum) =~? '\v^\s*$'
         return '='
