@@ -58,15 +58,15 @@ set tabstop=8                                       " <TAB> character is 8 wide
 " }}}
 " UI Layout {{{
 
-"set number                                                  " show line numbers
 set number                                                   " show line numbers
+set relativenumber                                 " use relative line numbers
 set autoindent                                    " enable automatic indentation
 set cursorline                                          " highlight current line
 filetype plugin on                                      " Enable filetype plugin
 filetype indent on                             " load file-specific indent files
 set wildmenu                             " visual auto-complete for command menu
 "set wildmode=longest:full                             " not sure what this does
-set lazyredraw                                       " redraw only when necesary
+"set lazyredraw                                       " redraw only when necesary
 set showmatch                                        " highlight matching [{()}]
 set matchtime=1                               " tenths of a second for showmatch
 set scrolloff=3                                " show extra lines when scrolling
@@ -86,6 +86,7 @@ set incsearch                                       " enable incremental search
 set hlsearch                                         " highlight search results
 set ignorecase                                    " ignore case while searching
 set smartcase                        " case sensitive if case is used in search
+
 " remove search highlight
 nnoremap <leader>k :nohlsearch<CR>
 
@@ -95,13 +96,17 @@ nnoremap <leader>k :nohlsearch<CR>
 set foldenable                                                  " enable folding
 set foldlevelstart=10                                 " default level to open to
 set foldnestmax=10                                  " max number of nested folds
-set foldmethod=indent                          " fold based on indent by default
+set foldmethod=marker                          " fold based on indent by default
 set foldtext=SuperFoldText()                   " ~/.vim/plugin/SuperFoldText.vim
+" set fold style to just bold, no underline or highlight
+highlight Folded term=bold cterm=bold ctermbg=NONE
 
 " space opens/closes folds
 nnoremap <space> za
-" fold all except current fold (isolate fold)
-nnoremap g<space> zMzO
+
+" Isolate fold, close all except for parents of current line
+nnoremap zI zMzv
+"nnoremap zI zMzO  " XXX does the same?
 
 " }}}
 " General Settings {{{
@@ -192,8 +197,6 @@ augroup END
 
 " }}}
 " Autocommands, C/C++ {{{
-
-" augroup and autocmd! prevent mupliple definitions of auto commands
 augroup filetype_c
     autocmd!
 
@@ -216,7 +219,7 @@ augroup filetype_c
     autocmd BufNewFile,BufRead *.dox setlocal foldnestmax=1 filetype=c.doxygen
 
     " compile and run current file
-    autocmd FileType c nnoremap <buffer> <f5>
+    autocmd FileType c nnoremap <buffer> gcc
                 \ :w<cr>:!gcc -std=gnu99 -D_GNU_SOURCE % && ./a.out<cr>
 augroup END
 
@@ -242,6 +245,7 @@ augroup filetype_html
     autocmd Filetype html,css setlocal
                 \ shiftwidth=2
                 \ softtabstop=2
+                \ foldnestmax=10
                 \ foldlevelstart=10
     " open current html file in default browser
     autocmd Filetype html nnoremap <buffer> <f5>
@@ -260,7 +264,7 @@ augroup END
 
 " }}}
 " Autocommands, markdown {{{
-let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh', 'c', 'cpp']
 augroup filetype_markdown
     autocmd!
     autocmd filetype markdown setlocal
@@ -274,50 +278,10 @@ augroup filetype_markdown
     " write and open in browser
     autocmd Filetype markdown nnoremap <buffer> <F5>
                 \ :w<cr>:! mdr --number-sections %<cr>
-    " print current files html
+    " print current file's html
     autocmd Filetype markdown nnoremap <buffer> <F6>
                 \ :w<cr>:! pandoc --number-sections -t html5 %<cr>
-
-"    " *.md files are mardown, not 'modal2', whatever the hell that is..
-"    autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
-"
-"    " set up word wrapping
-"    autocmd BufNewFile,BufRead *.md setlocal wrap linebreak spell
-"
-"    " no line numbers
-"    autocmd BufNewFile,BufRead *.md setlocal nonumber
-"
-"    " remap j/k keys to go down displayed lines (useful with wrapped lines)
-"    autocmd Filetype markdown noremap <buffer> j gj
-"    autocmd Filetype markdown noremap <buffer> k gk
-"
-"    " mappings for headers
-"    autocmd Filetype markdown nnoremap <buffer> <localleader>=
-"                \ yypVr=:syntax sync fromstart<cr>
-"    autocmd Filetype markdown nnoremap <buffer> <localleader>-
-"                \ yypVr-:syntax sync fromstart<cr>
-"
-"    " headers in insert mode, make header and start new line
-"    autocmd Filetype markdown inoremap <buffer> \\=
-"                \ <Esc>yypVr=:syntax sync fromstart<cr>o
-"    autocmd Filetype markdown inoremap <buffer> \\-
-"                \ <Esc>yypVr-:syntax sync fromstart<cr>o
-"
-"    " redraw syntax highlighting, useful since headings don't always update
-"    autocmd Filetype markdown nnoremap <buffer> <F12>
-"                \ <Esc>:syntax sync fromstart<cr>
-"    autocmd Filetype markdown inoremap <buffer> <F12>
-"                \ <C-o>:syntax sync fromstart<cr>
-"
-"    " write and open in browser
-"    autocmd Filetype markdown nnoremap <buffer> <F5>
-"                \ :w<cr>:! mdr %<cr>
-"
-"    " print current files html
-"    autocmd Filetype markdown nnoremap <buffer> <F6>
-"                \ :w<cr>:! pandoc -t html5 %<cr>
 augroup END
-
 " }}}
 " Autocommands, python {{{
 augroup filetype_python
@@ -325,6 +289,7 @@ augroup filetype_python
 
     " basic settings
     autocmd filetype python setlocal
+                \ number
                 \ relativenumber
                 \ encoding=utf-8
 
@@ -367,22 +332,6 @@ augroup filetype_text
 augroup END
 
 " }}}
-" Autocommands, snippets {{{
-
-" settings for UltiSnips snippet files
-augroup filetype_snippets
-    autocmd!
-    autocmd Filetype snippets setlocal
-                \ foldmethod=marker
-                \ foldlevel=0
-                \ noexpandtab
-                \ softtabstop=0
-augroup END
-
-" Or put this at the top:
-" vim: foldmethod=marker:foldlevel=0:noexpandtab:softtabstop=0
-
-" }}}
 " Autocommands, TODO {{{
 
 augroup filetype_todo
@@ -418,11 +367,11 @@ augroup filetype_xdefaults
     autocmd!
     autocmd Filetype xdefaults setlocal
                 \ foldmethod=marker
-                \ foldlevel=0
+                \ foldlevelstart=0
 augroup END
 
 " Or put this at the top:
-" vim: foldmethod=marker:foldlevel=0
+" vim: foldmethod=marker:foldlevelstart=0
 
 " }}}
 " Functions {{{
