@@ -109,6 +109,19 @@ nnoremap zI zMzv
 "nnoremap zI zMzO  " XXX does the same?
 
 " }}}
+" netrw Settings {{{
+
+" Slide notes from https://youtu.be/XA2WjJbmmoM
+" located at https://github.com/mcantor/no_plugins
+let g:netrw_banner=0                                   " disable annoying banner
+let g:netrw_altv=1                                    " open splits to the right
+let g:netrw_alto=1                                    " open splits to the right
+let g:netrw_liststyle=3                                              " tree view
+let g:netrw_browse_split=4                                " open in prior window
+"let g:netrw_list_hide=netrw_gitignore#Hide()
+"let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+" }}}
 " General Settings {{{
 
 set nocompatible                                       " Use Vim options, not vi
@@ -166,6 +179,30 @@ nnoremap <C-b> :bprevious<cr>
 " our RepeatUntil() func
 nnoremap <leader><space> :call RepeatWidth()<cr>
 
+" find all references of word under cursor and put in quickfix list
+" \V = Very no magic, match word exactly (no regexing)
+" g = multiple matches per file
+" j = don't jump to first match
+" ** = recursive search (use wildignore setting to filter files)
+" FIXME make this case sensitive?
+nnoremap <leader>g
+            \ :silent execute "vimgrep<Space>/\\V" . 
+            \ escape(expand("<cword>"),'/?') . 
+            \ "/gj<Space>**"<cr>
+            \ :copen<cr>
+
+" find all TODOs, FIXMEs and XXXs in project and open in changelist
+" matches any of the three if they are followed by a space or a newline
+"   \v = Very magic regex
+"   g = multiple matches per file
+"   j = don't jump to first match
+"   ** = recursive search (use wildignore setting to filter files)
+nnoremap <leader>t
+            \ :silent execute "vimgrep<space>/\\v" .
+            \ "(TODO\|FIXME\|XXX)( +\|$)" .
+            \ "/gj<space>**"<cr>
+            \ :copen<cr>
+
 " }}}
 " Mappings, Insert mode {{{
 
@@ -185,6 +222,26 @@ vnoremap " <esc>`>a"<esc>`<i"<esc>`>
 vnoremap ' <esc>`>a'<esc>`<i'<esc>`>
 
 " }}}
+" Autocommands, Assembler {{{
+augroup filetype_asm
+    autocmd!
+
+    autocmd filetype asm setlocal
+		\ tabstop=2
+		\ softtabstop=2
+		\ shiftwidth=2
+		\ expandtab
+                \ textwidth=79
+		\ number
+		\ relativenumber
+                \ wildignore+=*.o
+                \ wildignore+=*.map
+                \ wildignore+=*.axe
+                \ wildignore+=*.exe
+                \ wildignore+=tags
+
+augroup END
+" }}}
 " Autocommands, bash-fc {{{
 
 " augroup and autocmd! prevent mupliple definitions of auto commands
@@ -200,8 +257,22 @@ augroup END
 augroup filetype_c
     autocmd!
 
-    " c/c++/arduino autocmds - autoformat with astyle, fold by syntax
-    autocmd BufNewFile,BufRead *.c,*.h,*.cpp,*.ino setlocal
+    autocmd FileType c,cpp setlocal
+		\ foldmethod=syntax
+		\ foldnestmax=99
+                \ foldlevelstart=0
+		\ tabstop=2
+		\ softtabstop=2
+		\ shiftwidth=2
+		\ expandtab
+                \ textwidth=79
+		\ number
+		\ relativenumber
+                \ wildignore+=*.o
+                \ wildignore+=*.map
+                \ wildignore+=tags
+
+    autocmd Filetype c,cpp setlocal
                 \ formatprg=astyle\ -s4plSC
                 \ foldmethod=syntax
 
@@ -209,20 +280,56 @@ augroup filetype_c
     autocmd FileType c,cpp let
                 \ &colorcolumn=join(range(&textwidth+1,999),",")
 
-    " only fold one level (functions), use doxygen syntax
-    autocmd BufNewFile,BufRead *.c setlocal foldnestmax=1 filetype=c.doxygen
+    " jump to header / source file
+    autocmd FileType c,cpp nnoremap <buffer> <f4> :call CHSwap()<cr>
 
-    " default to c.doxygen type for headers
-    autocmd BufNewFile,BufRead *.h setlocal foldnestmax=1 filetype=c.doxygen
-
-    " default to c.doxygen type for .dox files
-    autocmd BufNewFile,BufRead *.dox setlocal foldnestmax=1 filetype=c.doxygen
+    " Close all multiline comment folds - uses mark t to keep the cursor from
+    " jumping around
+    autocmd FileType c,cpp nnoremap <buffer> zcc
+                \ mt:g/\v^\s*\/\*/normal! zc <cr> :nohlsearch<cr>`t
+    " Open all multiline comment folds
+    autocmd FileType c,cpp nnoremap <buffer> zco
+                \ mt:g/\v^\s*\/\*/normal! zo <cr> :nohlsearch<cr>`t
 
     " compile and run current file
     autocmd FileType c nnoremap <buffer> gcc
                 \ :w<cr>:!gcc -std=gnu99 -D_GNU_SOURCE % && ./a.out<cr>
-augroup END
 
+augroup END
+" }}}
+" Autocommands, dot {{{
+augroup filetype_dot
+    autocmd!
+    autocmd filetype dot setlocal
+                \ linebreak
+                \ number
+                \ relativenumber
+                \ autoindent
+
+    " TODO implement dot file rendering
+    " FIXME windows specific
+    autocmd FileType dot nnoremap <buffer> <f5>
+                \ :w<cr>:!dot -Tpng % -o %.png && start %.png<cr>
+
+augroup END
+" }}}
+" Autocommands, doors_notes {{{
+augroup filetype_dot
+    autocmd!
+    autocmd filetype doors_notes setlocal
+                \ nonumber
+                \ norelativenumber
+                \ autoindent
+
+    " comments
+    autocmd FileType doors_notes syntax match Comment '\v\#.*$'
+    " ids
+    autocmd FileType doors_notes syntax match Define '\v^[a-zA-Z]*[0-9_]+'
+    autocmd FileType doors_notes syntax match Define '\v[a-zA-Z]+[0-9_]+'
+    " tags
+    autocmd FileType doors_notes syntax match Type '\v\@[a-zA-Z0-9_]+'
+
+augroup END
 " }}}
 " Autocommands, gEDA config files {{{
 
@@ -272,6 +379,12 @@ augroup filetype_markdown
                 \ linebreak
                 \ spell
                 \ nonumber
+                \ norelativenumber
+                \ autoindent
+                \ foldmethod=expr
+                \ foldexpr=GetMarkdownFold(v:lnum)
+                \ foldcolumn=2
+
     " remap j/k keys to go down displayed lines (useful with wrapped lines)
     autocmd Filetype markdown noremap <buffer> j gj
     autocmd Filetype markdown noremap <buffer> k gk
@@ -308,7 +421,7 @@ augroup filetype_python
 
     " run current file
     autocmd FileType python nnoremap <buffer> <f5>
-                \ :w<cr>:!python %<cr>
+                \ :w<cr>:!python3 %<cr>
 
 augroup END
 
@@ -451,3 +564,8 @@ function! GetMarkdownFold(lnum)  "{{{2
 endfunction  "}}}2
 
 " }}}
+
+" will source .vimrc files from the current working directory
+" this is not secure!!!
+set exrc
+set secure
