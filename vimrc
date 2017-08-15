@@ -191,13 +191,25 @@ nnoremap <leader>g
             \ "/gj<Space>**"<cr>
             \ :copen<cr>
 
-" find all TODOs, FIXMEs and XXXs in project and open in changelist
+" find all TODOs, FIXMEs and XXXs in current file and open in changelist
 " matches any of the three if they are followed by a space or a newline
 "   \v = Very magic regex
 "   g = multiple matches per file
 "   j = don't jump to first match
 "   ** = recursive search (use wildignore setting to filter files)
 nnoremap <leader>t
+            \ :silent execute "vimgrep<space>/\\v" .
+            \ "(TODO\|FIXME\|XXX)( +\|$)" .
+            \ "/gj<space>%"<cr>
+            \ :copen<cr>
+
+" find all TODOs, FIXMEs and XXXs in project and open in changelist
+" matches any of the three if they are followed by a space or a newline
+"   \v = Very magic regex
+"   g = multiple matches per file
+"   j = don't jump to first match
+"   ** = recursive search (use wildignore setting to filter files)
+nnoremap <leader>T
             \ :silent execute "vimgrep<space>/\\v" .
             \ "(TODO\|FIXME\|XXX)( +\|$)" .
             \ "/gj<space>**"<cr>
