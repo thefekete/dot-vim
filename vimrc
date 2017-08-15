@@ -205,9 +205,9 @@ augroup filetype_c
                 \ formatprg=astyle\ -s4plSC
                 \ foldmethod=syntax
 
-    " highlight any characters over column 80
-    autocmd BufNewFile,BufRead *.c,*.h,*.cpp,*.ino
-                \ :match ErrorMsg /\%>80v.\+/
+    " create a color column
+    autocmd FileType c,cpp let
+                \ &colorcolumn=join(range(&textwidth+1,999),",")
 
     " only fold one level (functions), use doxygen syntax
     autocmd BufNewFile,BufRead *.c setlocal foldnestmax=1 filetype=c.doxygen
@@ -302,9 +302,9 @@ augroup filetype_python
                 \ expandtab
                 \ autoindent
 
-    " Show trailing whitepace and spaces before a tab:
-    highlight ExtraWhitespace ctermbg=red guibg=red
-    :autocmd filetype python syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+    " create a color column
+    autocmd FileType c,cpp let
+                \ &colorcolumn=join(range(&textwidth+1,999),",")
 
     " run current file
     autocmd FileType python nnoremap <buffer> <f5>
