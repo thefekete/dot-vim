@@ -26,6 +26,12 @@ else
 endif
 
 " }}}
+" Linux Specific Settings {{{
+
+if g:env_linux
+endif
+
+" }}}
 " Windows Specific Settings {{{
 
 if g:env_win
