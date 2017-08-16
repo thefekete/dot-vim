@@ -10,9 +10,9 @@
 if hostname() ==# "thinkrad"
     let g:env_linux=1
     let g:env_win=0
-elseif hostname() ==# "HTKMNB075"                    " TODO verify this hostname
-    let g:env_linux=1
-    let g:env_win=0
+elseif hostname() ==# "HTKMNB075"                   " TODO verify this hostname
+    let g:env_linux=0
+    let g:env_win=1
 else
     " unknown host, no os specific settings
     let g:env_linux=0
@@ -20,11 +20,16 @@ else
 endif
 
 " }}}
+" Windows Settings {{{
 
+if g:env_win
+    " fix backspace problem in mintty / MSYS2
+    set bs=2
+endif
+
+" }}}
 " pathogen  {{{
-
 execute pathogen#infect()
-
 " }}}
 " Leaders {{{
 
