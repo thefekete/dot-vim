@@ -7,6 +7,7 @@
 function! SuperFoldText() " {{{2
     let cont = ' … '                                     " continuation string
     let fillchar = ' '
+    "let foldcount = (v:foldend - v:foldstart) . "↓"
     let foldcount = "↓" . (v:foldend - v:foldstart)
     let width = winwidth(0) - (&foldcolumn
                 \ + ((&number||&relativenumber) * &numberwidth))

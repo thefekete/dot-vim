@@ -39,6 +39,10 @@ let mapleader = "\\"
 " localleader is just '\\', but it's an escape char so we need four
 let maplocalleader = "\\\\"
 
+" for the german layout use plus instead:
+" let mapleader = "+"
+" let maplocalleader = "++"
+
 " }}}
 " Colors {{{
 
