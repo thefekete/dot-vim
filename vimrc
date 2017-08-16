@@ -13,7 +13,10 @@ execute pathogen#infect()
 if hostname() ==# "thinkrad"
     let g:env_linux=1
     let g:env_win=0
-elseif hostname() ==# "HTKMNB075"                   " TODO verify this hostname
+elseif hostname() ==# "HTKMNB075"
+    let g:env_linux=0
+    let g:env_win=1
+elseif hostname() ==# "DEN1900043"                  " TODO verify this hostname
     let g:env_linux=0
     let g:env_win=1
 else
