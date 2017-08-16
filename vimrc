@@ -3,6 +3,7 @@
 " Tim Pope's vim-sensible plugin has some interesting defaults
 
 " Environment {{{
+
 " Here we figure set some helper variables so we can tune settings based on
 " 'where' vim is running.
 
@@ -63,19 +64,17 @@ set tabstop=8                                       " <TAB> character is 8 wide
 " }}}
 " UI Layout {{{
 
-set number                                                   " show line numbers
-set relativenumber                                 " use relative line numbers
-set autoindent                                    " enable automatic indentation
-set cursorline                                          " highlight current line
-filetype plugin on                                      " Enable filetype plugin
-filetype indent on                             " load file-specific indent files
-set wildmenu                             " visual auto-complete for command menu
-"set wildmode=longest:full                             " not sure what this does
-"set lazyredraw                                       " redraw only when necesary
-set showmatch                                        " highlight matching [{()}]
-set matchtime=1                               " tenths of a second for showmatch
-set scrolloff=3                                " show extra lines when scrolling
-set scroll=5                                   " num lines to jump with ctrl-u/d
+set number                                                  " show line numbers
+set relativenumber                                  " use relative line numbers
+set autoindent                                   " enable automatic indentation
+set cursorline                                         " highlight current line
+filetype plugin on                                     " Enable filetype plugin
+filetype indent on                            " load file-specific indent files
+set wildmenu                            " visual auto-complete for command menu
+set showmatch                                       " highlight matching [{()}]
+set matchtime=1                              " tenths of a second for showmatch
+set scrolloff=3                               " show extra lines when scrolling
+set scroll=5                                  " num lines to jump with ctrl-u/d
 set ruler
 set cmdheight=1
 set laststatus=2
@@ -98,11 +97,11 @@ nnoremap <leader>k :nohlsearch<CR>
 " }}}
 " Folding {{{
 
-set foldenable                                                  " enable folding
-set foldlevelstart=10                                 " default level to open to
-set foldnestmax=10                                  " max number of nested folds
-set foldmethod=marker                          " fold based on indent by default
-set foldtext=SuperFoldText()                   " ~/.vim/plugin/SuperFoldText.vim
+set foldenable                                                 " enable folding
+set foldlevelstart=10                                " default level to open to
+set foldnestmax=10                                 " max number of nested folds
+set foldmethod=marker                         " fold based on indent by default
+set foldtext=SuperFoldText()                  " ~/.vim/plugin/SuperFoldText.vim
 " set fold style to just bold, no underline or highlight
 highlight Folded term=bold cterm=bold ctermbg=NONE
 
@@ -118,27 +117,27 @@ nnoremap zI zMzv
 
 " Slide notes from https://youtu.be/XA2WjJbmmoM
 " located at https://github.com/mcantor/no_plugins
-let g:netrw_banner=0                                   " disable annoying banner
-let g:netrw_altv=1                                    " open splits to the right
-let g:netrw_alto=1                                    " open splits to the right
-let g:netrw_liststyle=3                                              " tree view
-let g:netrw_browse_split=4                                " open in prior window
+let g:netrw_banner=0                                  " disable annoying banner
+let g:netrw_altv=1                                   " open splits to the right
+let g:netrw_alto=1                                   " open splits to the right
+let g:netrw_liststyle=3                                             " tree view
+let g:netrw_browse_split=4                               " open in prior window
 "let g:netrw_list_hide=netrw_gitignore#Hide()
 "let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " }}}
 " General Settings {{{
 
-set nocompatible                                       " Use Vim options, not vi
-set autoread                          " reload file when it changes (externally)
-set title                                                 " set the window title
-set ttyfast                                                  " smoother changes?
-set history=1000                   " why not remember the last thousand changes?
-set sessionoptions-=options           " don't save options when saving a session
-set spelllang=en_us,de                   " use english and Deutsche dictionaries
+set nocompatible                                      " Use Vim options, not vi
+set autoread                         " reload file when it changes (externally)
+set title                                                " set the window title
+set ttyfast                                                 " smoother changes?
+set history=1000                  " why not remember the last thousand changes?
+set sessionoptions-=options          " don't save options when saving a session
+set spelllang=en_us,de                  " use english and Deutsche dictionaries
 set spellfile=~/.vim/spell/en.utf-8.add,~/.vim/spell/de.utf-8.add
-set complete+=kspell                    " add dictionary when spellcheck enabled
-set path+=**                                     " search sub-dirs for files too
+set complete+=kspell                   " add dictionary when spellcheck enabled
+set path+=**                                    " search sub-dirs for files too
 
 "autocmd! bufwritepost .vimrc source ~/.vimrc         " reload vimrc when saved
 
@@ -507,7 +506,8 @@ augroup END
 " Functions {{{
 
 function! RepeatWidth()  "{{{2
-    " Inserts the character under the cursor until line is &textwidth characters long
+    " Inserts the character under the cursor until line is &textwidth
+    " characters long
     if &textwidth > 0
         while strlen(getline('.')) < &textwidth
             exec "normal! vyP"
@@ -528,8 +528,8 @@ function! DeleteWidth()  "{{{2
 endfunction  " }}}2
 function! ChangeDirTo()  "{{{2
     " windows fix - change working directory if a dir is opened first
-    " this is just so that I can drag a folder onto the nvim.exe and have it open
-    " up as the working directory
+    " this is just so that I can drag a folder onto the nvim.exe and have it
+    " open up as the working directory
     "
     " Not needed for MSYS2, but to enable it, put this somewhere:
     "   au VimEnter * call ChangeDirTo()  " check for dir and change to it
