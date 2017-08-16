@@ -5,12 +5,11 @@
 " pathogen  {{{
 execute pathogen#infect()
 " }}}
-" Environment {{{
+" Hosts {{{
 
 " Here we figure set some helper variables so we can tune settings based on
 " 'where' vim is running.
 
-" Hosts
 if hostname() ==# "thinkrad"
     let g:env_linux=1
     let g:env_win=0
@@ -24,7 +23,7 @@ else
 endif
 
 " }}}
-" Windows Settings {{{
+" Windows Specific Settings {{{
 
 if g:env_win
     " fix backspace problem in mintty / MSYS2
