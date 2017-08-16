@@ -2,6 +2,9 @@
 " Got a lot of good info from: http://dougblack.io/words/a-good-vimrc.html
 " Tim Pope's vim-sensible plugin has some interesting defaults
 
+" pathogen  {{{
+execute pathogen#infect()
+" }}}
 " Environment {{{
 
 " Here we figure set some helper variables so we can tune settings based on
@@ -28,9 +31,6 @@ if g:env_win
     set bs=2
 endif
 
-" }}}
-" pathogen  {{{
-execute pathogen#infect()
 " }}}
 " Leaders {{{
 
