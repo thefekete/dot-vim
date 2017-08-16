@@ -487,6 +487,11 @@ augroup filetype_vim
     autocmd Filetype vim setlocal
                 \ foldmethod=marker
                 \ foldlevel=0
+                \ textwidth=79
+
+    " create a color column
+    autocmd FileType vim let
+                \ &colorcolumn=join(range(&textwidth+1,999),",")
 augroup END
 
 " Or put this at the top:
