@@ -421,7 +421,13 @@ augroup filetype_markdown
                 \ :w<cr>:! mdr --number-sections %<cr>
     " print current file's html
     autocmd Filetype markdown nnoremap <buffer> <F6>
-                \ :w<cr>:! pandoc --number-sections -t html5 %<cr>
+                \ :w<cr>:!pandoc
+                \   --to=docx --output=%:r.docx %<cr>:!start %:r.docx<cr>
+
+    autocmd FileType markdown nnoremap <buffer> <f7>
+                \ :w<cr>:!pandoc
+                \   --to=docx --reference-docx=%:h/template.docx
+                \   --output=%:r.docx %<cr>:!start %:r.docx<cr>
 augroup END
 " }}}
 " Autocommands, python {{{
