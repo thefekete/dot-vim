@@ -457,6 +457,10 @@ augroup filetype_python
     autocmd FileType python nnoremap <buffer> <f5>
                 \ :w<cr>:!clear; python3 %<cr>
 
+    " run doctests for current file
+    autocmd FileType python nnoremap <buffer> <f6>
+                \ :w<cr>:!clear; python3 -m doctest -o FAIL_FAST %<cr>
+
 augroup END
 
 " }}}
