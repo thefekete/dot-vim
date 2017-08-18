@@ -455,7 +455,7 @@ augroup filetype_python
 
     " run current file
     autocmd FileType python nnoremap <buffer> <f5>
-                \ :w<cr>:!python3 %<cr>
+                \ :w<cr>:!clear; python3 %<cr>
 
 augroup END
 
