@@ -93,7 +93,7 @@ set laststatus=2
 set statusline=%t\ %m%r%y
 set statusline+=\ %{fugitive#statusline()}
 set statusline+=%=%c,%l/%L\ %P
-set listchars=tab:»·,eol:¬,trail:·   " set up non-printing characters display
+set listchars=tab:➧·,eol:¶,trail:·     " set up non-printing characters display
 set colorcolumn=+1                  " adds ruler to right of &textwidth, if set
 
 " }}}
