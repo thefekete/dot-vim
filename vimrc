@@ -85,7 +85,6 @@ set tabstop=8                                       " <TAB> character is 8 wide
 set number                                                  " show line numbers
 set relativenumber                                  " use relative line numbers
 set autoindent                                   " enable automatic indentation
-set cursorline                                         " highlight current line
 filetype plugin on                                     " Enable filetype plugin
 filetype indent on                            " load file-specific indent files
 set wildmenu                            " visual auto-complete for command menu
