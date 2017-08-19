@@ -94,6 +94,7 @@ set statusline=%t\ %m%r%y
 set statusline+=\ %{fugitive#statusline()}
 set statusline+=%=%c,%l/%L\ %P
 set listchars=tab:»·,eol:¬,trail:·   " set up non-printing characters display
+set colorcolumn=+1                  " adds ruler to right of &textwidth, if set
 
 " }}}
 " Searching {{{
@@ -304,10 +305,6 @@ augroup filetype_c
                 \ formatprg=astyle\ -s4plSC
                 \ foldmethod=syntax
 
-    " create a color column
-    autocmd FileType c,cpp let
-                \ &colorcolumn=join(range(&textwidth+1,999),",")
-
     " jump to header / source file
     autocmd FileType c,cpp nnoremap <buffer> <f4> :call CHSwap()<cr>
 
@@ -449,10 +446,6 @@ augroup filetype_python
                 \ expandtab
                 \ autoindent
 
-    " create a color column
-    autocmd FileType c,cpp let
-                \ &colorcolumn=join(range(&textwidth+1,999),",")
-
     " run current file
     autocmd FileType python nnoremap <buffer> <f5>
                 \ :w<cr>:!clear; python3 %<cr>
@@ -506,10 +499,6 @@ augroup filetype_vim
                 \ foldmethod=marker
                 \ foldlevel=0
                 \ textwidth=79
-
-    " create a color column
-    autocmd FileType vim let
-                \ &colorcolumn=join(range(&textwidth+1,999),",")
 augroup END
 
 " Or put this at the top:
