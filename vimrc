@@ -62,8 +62,14 @@ let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 colorscheme solarized
 
-" super hacky way to get rid of folded line highlighting
-"highlight Folded ctermbg=black
+" Highlight Tweaks
+" lose eol, extends and precedes listchars
+highlight NonText ctermbg=None ctermfg=238
+" lose bg for nbsp, space, tab and trail listchars
+highlight SpecialKey ctermbg=None ctermfg=238
+" set fold style to just bold, no underline or highlight
+"highlight Folded term=bold cterm=bold ctermbg=NONE
+highlight Folded term=bold cterm=bold
 
 " }}}
 " Spaces & Tabs {{{
@@ -115,8 +121,6 @@ set foldlevelstart=10                                " default level to open to
 set foldnestmax=10                                 " max number of nested folds
 set foldmethod=marker                         " fold based on indent by default
 set foldtext=SuperFoldText()                  " ~/.vim/plugin/SuperFoldText.vim
-" set fold style to just bold, no underline or highlight
-highlight Folded term=bold cterm=bold ctermbg=NONE
 
 " space opens/closes folds
 nnoremap <space> za
