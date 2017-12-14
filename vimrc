@@ -102,6 +102,7 @@ set statusline+=%=%c,%l/%L\ %P
 set listchars=tab:➧·,eol:¶,trail:·     " set up non-printing characters display
 set colorcolumn=+1                  " adds ruler to right of &textwidth, if set
 set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:\ ,diff:-
+set splitright         " when splitting vertically, put new window to the right
 
 " }}}
 " Searching {{{
