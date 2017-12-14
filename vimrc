@@ -328,10 +328,20 @@ augroup filetype_c
                 \ wildignore+=*.map
                 \ wildignore+=tags
 
-    if g:env_linux
+    if executable('astyle')
+        " Note: You can set astyle options here, or in ~/.astylerc. Just don't
+        " forget to lose the --options=none line ;)
         autocmd Filetype c,cpp setlocal
-                    \ formatprg=astyle\ -s4plSC
-                    \ foldmethod=syntax
+                    \ formatprg=astyle
+                    \\ --options=none
+                    \\ --style=google
+                    \\ --indent=spaces=2
+                    \\ --indent-continuation=2
+                    \\ --indent-cases
+                    \\ --pad-oper
+                    \\ --pad-comma
+                    \\ --pad-header
+                    \\ --max-code-length=79
     endif
 
     " jump to header / source file
