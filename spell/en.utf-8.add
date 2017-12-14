@@ -8,8 +8,6 @@ apps
 jpegs
 EE
 GPH
-#eutschkurs
-#eutschkurs
 Fekete
 demensionally
 MOSFET
@@ -18,3 +16,5 @@ POR
 LSB
 MSB
 Debounce
+IAR
+workspace
