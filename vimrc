@@ -157,6 +157,7 @@ set spelllang=en_us,de                  " use english and Deutsche dictionaries
 set spellfile=~/.vim/spell/en.utf-8.add,~/.vim/spell/de.utf-8.add
 set complete+=kspell                   " add dictionary when spellcheck enabled
 set path+=**                                    " search sub-dirs for files too
+"set undofile                    " save undo tree in file for persistent undo's
 
 "autocmd! bufwritepost .vimrc source ~/.vimrc         " reload vimrc when saved
 
