@@ -66,8 +66,11 @@ highlight NonText ctermbg=None ctermfg=238
 " lose bg for nbsp, space, tab and trail listchars
 highlight SpecialKey ctermbg=None ctermfg=238
 " set fold style to just bold, no underline or highlight
-"highlight Folded term=bold cterm=bold ctermbg=NONE
-highlight Folded term=bold cterm=bold
+highlight Folded term=bold cterm=bold ctermbg=None
+" lose the bg on line numbers
+highlight LineNr ctermbg=None
+" highlight current line number
+highlight CursorLineNr ctermfg=3
 
 " }}}
 " Spaces & Tabs {{{
