@@ -328,9 +328,11 @@ augroup filetype_c
                 \ wildignore+=*.map
                 \ wildignore+=tags
 
-    autocmd Filetype c,cpp setlocal
-                \ formatprg=astyle\ -s4plSC
-                \ foldmethod=syntax
+    if g:env_linux
+        autocmd Filetype c,cpp setlocal
+                    \ formatprg=astyle\ -s4plSC
+                    \ foldmethod=syntax
+    endif
 
     " jump to header / source file
     autocmd FileType c,cpp nnoremap <buffer> <f4> :call CHSwap()<cr>
