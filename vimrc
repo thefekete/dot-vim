@@ -419,18 +419,28 @@ augroup filetype_markdown
     " remap j/k keys to go down displayed lines (useful with wrapped lines)
     autocmd Filetype markdown noremap <buffer> j gj
     autocmd Filetype markdown noremap <buffer> k gk
-    " write and open in browser
-    autocmd Filetype markdown nnoremap <buffer> <F5>
-                \ :w<cr>:! mdr --number-sections %<cr>
-    " print current file's html
-    autocmd Filetype markdown nnoremap <buffer> <F6>
-                \ :w<cr>:!pandoc
-                \   --to=docx --output=%:r.docx %<cr>:!start %:r.docx<cr>
 
-    autocmd FileType markdown nnoremap <buffer> <f7>
-                \ :w<cr>:!pandoc
-                \   --to=docx --reference-docx=%:h/template.docx
-                \   --output=%:r.docx %<cr>:!start %:r.docx<cr>
+    if g:env_linux
+        " write and open in browser
+        autocmd Filetype markdown nnoremap <buffer> <F5>
+                    \ :w<cr>:! mdr --number-sections % &<cr>
+        autocmd Filetype markdown nnoremap <buffer> <F6>
+                    \ :w<cr>:!pandoc
+                    \   --to=odt --output=%:r.odt %<cr>:!xdg-open %:r.odt &<cr>
+        autocmd FileType markdown nnoremap <buffer> <f7>
+                    \ :w<cr>:!pandoc
+                    \   --to=docx --reference-docx=%:h/template.docx
+                    \   --output=%:r.docx %<cr>:!xdg-open %:r.docx &<cr>
+    endif
+    if g:env_win
+        autocmd Filetype markdown nnoremap <buffer> <F6>
+                    \ :w<cr>:!pandoc
+                    \   --to=docx --output=%:r.docx %<cr>:!start %:r.docx<cr>
+        autocmd FileType markdown nnoremap <buffer> <f7>
+                    \ :w<cr>:!pandoc
+                    \   --to=docx --reference-docx=%:h/template.docx
+                    \   --output=%:r.docx %<cr>:!start %:r.docx<cr>
+    endif
 augroup END
 " }}}
 " Autocommands, python {{{
