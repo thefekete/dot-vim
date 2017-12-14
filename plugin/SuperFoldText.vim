@@ -4,7 +4,7 @@
 " Place this funciton in a file inside ~/.vim/plugin and add the following
 " to $MYVIMRC:
 "   set foldtext=SuperFoldText()
-function! SuperFoldText() " {{{2
+function! SuperFoldText() "{{{
     let cont = ' … '                                     " continuation string
     let fillchar = ' '
     "let foldcount = (v:foldend - v:foldstart) . "↓"
@@ -38,4 +38,4 @@ function! SuperFoldText() " {{{2
     let fillwidth = width - strdisplaywidth(ftext) - strdisplaywidth(foldcount)
 
     return ftext . repeat(fillchar,fillwidth) . foldcount
-endfunction  " }}}2
+endfunction  "}}}
