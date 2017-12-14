@@ -483,13 +483,16 @@ augroup filetype_python
                 \ expandtab
                 \ autoindent
 
-    " run current file
     autocmd FileType python nnoremap <buffer> <f5>
-                \ :w<cr>:!clear; python3 %<cr>
+                \ :w<cr>:!clear; python3.6 %<cr> 
 
     " run doctests for current file
     autocmd FileType python nnoremap <buffer> <f6>
-                \ :w<cr>:!clear; python3 -m doctest -o FAIL_FAST %<cr>
+                \ :w<cr>:!clear; python3.6 -m doctest -o FAIL_FAST -v %<cr>
+
+    " run current file and open interpreter
+    autocmd FileType python nnoremap <buffer> <f7>
+                \ :w<cr>:!clear; PYTHONPATH=~/python/bpython python3.6 -m bpython.cli -i %<cr> 
 
 augroup END
 
