@@ -54,12 +54,10 @@ let maplocalleader = "\\\\"
 " }}}
 " Colors {{{
 
-set t_Co=256  " 256 color mode
 syntax enable  " enables syntax highlighting
 set background=dark  " we're using a dark background
 "set background=light  " we're using a light background
 let g:solarized_termtrans=1
-let g:solarized_termcolors=256
 colorscheme solarized
 
 " Highlight Tweaks
