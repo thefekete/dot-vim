@@ -360,7 +360,7 @@ augroup filetype_dot
 
     " TODO implement dot file rendering
     " FIXME windows specific
-    autocmd FileType dot nnoremap <buffer> <f5>
+    autocmd FileType dot nnoremap <buffer> gd
                 \ :w<cr>:!dot -Tpng % -o %.png && start %.png<cr>
 
 augroup END
