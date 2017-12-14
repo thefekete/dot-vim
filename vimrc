@@ -277,6 +277,27 @@ augroup filetype_asm
 
 augroup END
 " }}}
+" Autocommands, sh {{{
+augroup filetype_sh
+    autocmd!
+    autocmd FileType sh setlocal
+		\ foldmethod=syntax
+		\ foldnestmax=99
+                \ foldlevelstart=0
+		\ tabstop=4
+		\ softtabstop=4
+		\ shiftwidth=4
+		\ expandtab
+                \ textwidth=79
+		\ number
+		\ relativenumber
+
+    " run current file
+    autocmd FileType sh nnoremap <buffer> <f5>
+                \ :w<cr>:!bash ./%<cr>
+
+augroup END
+" }}}
 " Autocommands, bash-fc {{{
 
 " augroup and autocmd! prevent mupliple definitions of auto commands
