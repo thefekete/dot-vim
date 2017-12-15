@@ -54,23 +54,26 @@ let maplocalleader = "\\\\"
 " }}}
 " Colors {{{
 
+augroup color_tweaks
+    " these will get applied when the colorscheme is set
+    autocmd!
+    " lose bg for eol, extends and precedes listchars
+    autocmd ColorScheme * highlight NonText ctermbg=None ctermfg=238
+    " lose bg for nbsp, space, tab and trail listchars
+    autocmd ColorScheme * highlight SpecialKey ctermbg=None ctermfg=238
+    " set fold style to just bold, no underline or highlight
+    autocmd ColorScheme * highlight Folded term=bold cterm=bold ctermbg=None
+    " lose the bg on line numbers
+    autocmd ColorScheme * highlight LineNr ctermbg=None
+    " highlight current line number
+    autocmd ColorScheme * highlight CursorLineNr ctermfg=3
+augroup END  "/color_tweaks
+
 syntax enable  " enables syntax highlighting
 set background=dark  " we're using a dark background
 "set background=light  " we're using a light background
 let g:solarized_termtrans=1
 colorscheme solarized
-
-" Highlight Tweaks
-" lose eol, extends and precedes listchars
-highlight NonText ctermbg=None ctermfg=238
-" lose bg for nbsp, space, tab and trail listchars
-highlight SpecialKey ctermbg=None ctermfg=238
-" set fold style to just bold, no underline or highlight
-highlight Folded term=bold cterm=bold ctermbg=None
-" lose the bg on line numbers
-highlight LineNr ctermbg=None
-" highlight current line number
-highlight CursorLineNr ctermfg=3
 
 " }}}
 " Spaces & Tabs {{{
