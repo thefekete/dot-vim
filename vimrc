@@ -3,7 +3,9 @@
 " Tim Pope's vim-sensible plugin has some interesting defaults
 
 " pathogen  {{{
+
 execute pathogen#infect()
+
 " }}}
 " Hosts {{{
 
@@ -22,31 +24,6 @@ elseif hostname() ==? g:host_work_laptop
 elseif hostname() ==? g:host_work_laptop
     " echom 'Running on hella laptop'
 endif
-
-" }}}
-" Windows Specific Settings {{{
-
-" TODO move backspace fix to general settings section and lose this section
-if has('win32unix') || has('win32') || has('win64')
-    " fix backspace problem in mintty / MSYS2
-    set backspace=2
-endif
-
-" }}}
-" Leaders {{{
-
-" TODO use a mapping of ö, ü or ä to switch to german keyboard
-" TODO leaders can also go into general settings
-" TODO create a function to toggle german/american kb and map it
-
-" leader is just '\', but it's an escape char so we need two
-let mapleader = "\\"
-" localleader is just '\\', but it's an escape char so we need four
-let maplocalleader = "\\\\"
-
-" for the german layout use plus instead:
-" let mapleader = "+"
-" let maplocalleader = "++"
 
 " }}}
 " Colors {{{
@@ -69,50 +46,6 @@ syntax enable  " enables syntax highlighting
 set background=dark  " we're using a dark background
 "set background=light  " we're using a light background
 colorscheme solarized
-
-
-" }}}
-" Spaces & Tabs {{{
-
-set expandtab                             " insert spaces when <TAB> is pressed
-set softtabstop=4                                 " number of spaces for <TAB>s
-set shiftwidth=4                             " number of spaces for indentation
-set tabstop=8                                       " <TAB> character is 8 wide
-
-" }}}
-" UI Layout {{{
-
-set number                                                  " show line numbers
-set relativenumber                                  " use relative line numbers
-set autoindent                                   " enable automatic indentation
-filetype plugin on                                     " Enable filetype plugin
-filetype indent on                            " load file-specific indent files
-set wildmenu                            " visual auto-complete for command menu
-set showmatch                                       " highlight matching [{()}]
-set matchtime=1                              " tenths of a second for showmatch
-set scrolloff=3                               " show extra lines when scrolling
-set scroll=5                                  " num lines to jump with ctrl-u/d
-set ruler
-set cmdheight=1
-set laststatus=2
-set statusline=%t\ %m%r%y
-set statusline+=\ %{fugitive#statusline()}
-set statusline+=%=%c,%l/%L\ %P
-set listchars=tab:➧·,eol:¶,trail:·     " set up non-printing characters display
-set colorcolumn=+1                  " adds ruler to right of &textwidth, if set
-set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:\ ,diff:-
-set splitright         " when splitting vertically, put new window to the right
-
-" }}}
-" Searching {{{
-
-set incsearch                                       " enable incremental search
-set hlsearch                                         " highlight search results
-set ignorecase                                    " ignore case while searching
-set smartcase                        " case sensitive if case is used in search
-
-" remove search highlight
-nnoremap <leader>k :nohlsearch<CR>
 
 " }}}
 " Folding {{{
@@ -146,7 +79,36 @@ let g:netrw_browse_split=4                               " open in prior window
 " }}}
 " General Settings {{{
 
+" TODO use a mapping of ö, ü or ä to switch to german keyboard
+" TODO create a function to toggle german/american leades kb and map it
+let mapleader = "\\"                            " just one '\' ('+' for german)
+let maplocalleader = "\\\\"            " two backslashes '\\' ('++' for german)
+
 set nocompatible                                      " Use Vim options, not vi
+set expandtab                             " insert spaces when <TAB> is pressed
+set softtabstop=4                                 " number of spaces for <TAB>s
+set shiftwidth=4                             " number of spaces for indentation
+set tabstop=8                                       " <TAB> character is 8 wide
+set number                                                  " show line numbers
+set relativenumber                                  " use relative line numbers
+set autoindent                                   " enable automatic indentation
+filetype indent on                            " load file-specific indent files
+filetype plugin on                                     " Enable filetype plugin
+set wildmenu                            " visual auto-complete for command menu
+set showmatch                                       " highlight matching [{()}]
+set matchtime=1                              " tenths of a second for showmatch
+set scrolloff=3                               " show extra lines when scrolling
+set scroll=5                                  " num lines to jump with ctrl-u/d
+set ruler
+set cmdheight=1
+set laststatus=2
+set statusline=%t\ %m%r%y
+set statusline+=\ %{fugitive#statusline()}
+set statusline+=%=%c,%l/%L\ %P
+set listchars=tab:➧·,eol:¶,trail:·     " set up non-printing characters display
+set colorcolumn=+1                  " adds ruler to right of &textwidth, if set
+set fillchars=stl:\ ,stlnc:\ ,vert:\ ,fold:\ ,diff:-
+set splitright         " when splitting vertically, put new window to the right
 set autoread                         " reload file when it changes (externally)
 set title                                                " set the window title
 set ttyfast                                                 " smoother changes?
@@ -157,6 +119,17 @@ set spellfile=~/.vim/spell/en.utf-8.add,~/.vim/spell/de.utf-8.add
 set complete+=kspell                   " add dictionary when spellcheck enabled
 set path+=**                                    " search sub-dirs for files too
 "set undofile                    " save undo tree in file for persistent undo's
+set incsearch                                       " enable incremental search
+set hlsearch                                         " highlight search results
+set ignorecase                                    " ignore case while searching
+set smartcase                        " case sensitive if case is used in search
+set exrc              " source .vimrc from current dir (not very secure at all)
+set secure         " disables some local .vimrc commands, still not that secure
+
+if has('win32unix') || has('win32') || has('win64')
+    " fix backspace problem in mintty / MSYS2
+    set backspace=2
+endif
 
 "autocmd! bufwritepost .vimrc source ~/.vimrc         " reload vimrc when saved
 
@@ -168,11 +141,8 @@ iabbrev @@ Dan Fekete <thefekete@gmail.com>
 " }}}
 " Mappings, Normal mode {{{
 
-" map these to something useful:
-"nnoremap <up> ...
-"nnoremap <down> ...
-"nnoremap <left> ...
-"nnoremap <right> ...
+" remove search highlight
+nnoremap <leader>k :nohlsearch<CR>
 
 " open vimrc in a split to edit
 nnoremap <leader>ve :split $MYVIMRC<cr>
@@ -649,8 +619,3 @@ function! GetMarkdownFold(lnum)  "{{{2
 endfunction  "}}}2
 
 " }}}
-
-" will source .vimrc files from the current working directory
-" this is not secure!!!
-set exrc
-set secure
