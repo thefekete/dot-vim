@@ -10,37 +10,34 @@ execute pathogen#infect()
 " Here we figure set some helper variables so we can tune settings based on
 " 'where' vim is running.
 
-if hostname() ==# "thinkrad"
-    let g:env_linux=1
-    let g:env_win=0
-elseif hostname() ==# "HTKMNB075"
-    let g:env_linux=0
-    let g:env_win=1
-elseif hostname() ==# "DEN1900043"                  " TODO verify this hostname
-    let g:env_linux=0
-    let g:env_win=1
-else
-    " unknown host, no os specific settings
-    let g:env_linux=0
-    let g:env_win=0
-endif
+let g:host_my_laptop = 'thinkrad'
+let g:host_work_laptop = 'HTKMNB075'
+let g:host_hella_laptop = 'DEN1900043'  " TODO verify this
 
-" }}}
-" Linux Specific Settings {{{
-
-if g:env_linux
+" now we can fine tune settings like so:
+if hostname() ==? g:host_my_laptop
+    " echom 'Running on my laptop'
+elseif hostname() ==? g:host_work_laptop
+    " echom 'Running on work laptop'
+elseif hostname() ==? g:host_work_laptop
+    " echom 'Running on hella laptop'
 endif
 
 " }}}
 " Windows Specific Settings {{{
 
-if g:env_win
+" TODO move backspace fix to general settings section and lose this section
+if has('win32unix') || has('win32') || has('win64')
     " fix backspace problem in mintty / MSYS2
-    set bs=2
+    set backspace=2
 endif
 
 " }}}
 " Leaders {{{
+
+" TODO use a mapping of ö, ü or ä to switch to german keyboard
+" TODO leaders can also go into general settings
+" TODO create a function to toggle german/american kb and map it
 
 " leader is just '\', but it's an escape char so we need two
 let mapleader = "\\"
@@ -454,7 +451,7 @@ augroup filetype_markdown
     autocmd Filetype markdown noremap <buffer> j gj
     autocmd Filetype markdown noremap <buffer> k gk
 
-    if g:env_linux
+    if has('unix')
         " write and open in browser
         autocmd Filetype markdown nnoremap <buffer> <F5>
                     \ :w<cr>:! mdr --number-sections % &<cr>
@@ -466,7 +463,7 @@ augroup filetype_markdown
                     \   --to=docx --reference-docx=%:h/template.docx
                     \   --output=%:r.docx %<cr>:!xdg-open %:r.docx &<cr>
     endif
-    if g:env_win
+    if has('win32unix') || has('win32') || has('win64')
         autocmd Filetype markdown nnoremap <buffer> <F6>
                     \ :w<cr>:!pandoc
                     \   --to=docx --output=%:r.docx %<cr>:!start %:r.docx<cr>
