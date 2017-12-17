@@ -211,6 +211,9 @@ nnoremap <leader>T
 " go into 'fullscreen' mode with goyo
 nnoremap <F11> :Goyo<cr>
 
+" Toggle Gundo
+nnoremap <leader>u :GundoToggle<cr>
+
 " }}}
 " Mappings, Insert mode {{{
 
