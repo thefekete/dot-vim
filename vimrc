@@ -68,7 +68,6 @@ augroup END  "color_tweaks
 syntax enable  " enables syntax highlighting
 set background=dark  " we're using a dark background
 "set background=light  " we're using a light background
-let g:solarized_termtrans=1
 colorscheme solarized
 
 
