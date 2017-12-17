@@ -208,6 +208,9 @@ nnoremap <leader>T
             \ "/gj<space>**"<cr>
             \ :copen<cr>
 
+" go into 'fullscreen' mode with goyo
+nnoremap <F11> :Goyo<cr>
+
 " }}}
 " Mappings, Insert mode {{{
 
