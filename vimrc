@@ -144,7 +144,11 @@ endif
 " }}}
 " Abbreviations {{{
 
-iabbrev @@ Dan Fekete <thefekete@gmail.com>
+if hostname() ==? g:host_work_laptop
+    iabbrev @@ Daniel Fekete <daniel.fekete@helbling.de>
+else
+    iabbrev @@ Dan Fekete <thefekete@gmail.com>
+endif
 
 " }}}
 " Mappings, Normal mode {{{
