@@ -78,6 +78,13 @@ let g:netrw_browse_split=4                               " open in prior window
 "let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " }}}
+" Goyo Settings {{{
+
+" https://github.com/junegunn/goyo.vim/blob/master/README.md
+let g:goyo_width = '66%'
+let g:goyo_height = '100%'
+
+" }}}
 " General Settings {{{
 
 " TODO use a mapping of ö, ü or ä to switch to german keyboard
