@@ -355,7 +355,7 @@ augroup filetype_dot
 augroup END
 " }}}
 " Autocommands, doors_notes {{{
-augroup filetype_dot
+augroup filetype_doors
     autocmd!
     autocmd filetype doors_notes setlocal
                 \ nonumber
