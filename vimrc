@@ -230,6 +230,10 @@ nnoremap <F11> :Goyo<cr>
 " Toggle Gundo
 nnoremap <leader>u :GundoToggle<cr>
 
+" add ifndef _FILE_H_ fence  TODO make local for header files only
+nnoremap <leader>hf ggO#define:read !echo "_%:t:r_%:e_"kjokgUUkJyyPlcwifndefwyiwGo#endif /* " */
+
+
 " }}}
 " Mappings, Insert mode {{{
 
