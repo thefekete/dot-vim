@@ -312,7 +312,6 @@ augroup filetype_c
     autocmd FileType c,cpp setlocal
 		\ foldmethod=syntax
 		\ foldnestmax=99
-                \ foldlevelstart=0
 		\ tabstop=2
 		\ softtabstop=2
 		\ shiftwidth=2
@@ -355,11 +354,22 @@ augroup filetype_c
     autocmd FileType c nnoremap <buffer> gcc
                 \ :w<cr>:!gcc -std=gnu99 -D_GNU_SOURCE % && ./a.out<cr>
 
+    autocmd FileType c nnoremap <buffer> gm
+                \ :w<cr>:make<cr>
+
+    " go to test file
+    autocmd FileType c nnoremap <buffer> gt
+                \ :find test_%:p:t:s/^test_//<cr>g;zz
+    " go to source code under test
+    autocmd FileType c nnoremap <buffer> gs
+                \ :find %:p:t:s/^test_//<cr>g;zz
+
 augroup END
 " }}}
 " Autocommands, dot {{{
 augroup filetype_dot
     autocmd!
+
     autocmd filetype dot setlocal
                 \ linebreak
                 \ number
