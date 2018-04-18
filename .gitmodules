@@ -16,3 +16,6 @@
 [submodule "bundle/gundo.vim"]
 	path = bundle/gundo.vim
 	url = https://github.com/sjl/gundo.vim.git
+[submodule "bundle/vim-openscad"]
+	path = bundle/vim-openscad
+	url = https://github.com/sirtaj/vim-openscad.git
