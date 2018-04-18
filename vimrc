@@ -430,7 +430,27 @@ augroup filetype_markdown
     autocmd Filetype markdown noremap <buffer> j gj
     autocmd Filetype markdown noremap <buffer> k gk
 
-    if has('unix')
+    if has('win32unix') || has('win32') || has('win64')
+        highlight SpellBad cterm=strikethrough,italic ctermfg=None
+                    "\ :w<cr>:! mdr
+        autocmd Filetype markdown nnoremap <buffer> <F5>
+                    \ :w<cr>:! pandoc %:p
+                    \ --to=html5 --standalone --toc --number-sections
+                    \ -M date="Revision: $(date -I)"
+                    \ -M author="Daniel Fekete &lt;daniel.fekete@helbling.de&gt;"
+                    \ \| firefox "data:text/html;base64,$(base64 -w 0 <&0)"<cr>
+        autocmd Filetype markdown nnoremap <buffer> <F6>
+                    \ :w<cr>:!pandoc
+                    \ -M date="Revision: $(date -I)"
+                    \ -M author="Daniel Fekete <daniel.fekete@helbling.de>"
+                    \   --to=docx --output=%:r.docx %<cr>:!start %:r.docx<cr>
+        autocmd FileType markdown nnoremap <buffer> <f7>
+                    \ :w<cr>:!pandoc --metadata date="$(date -I)"
+                    \ -M date="Revision: $(date -I)"
+                    \ -M author="Daniel Fekete <daniel.fekete@helbling.de>"
+                    \   --to=docx --reference-docx=%:h/template.docx
+                    \   --output=%:r.docx %<cr>:!start %:r.docx<cr>
+    elseif has('unix')
         " write and open in browser
         autocmd Filetype markdown nnoremap <buffer> <F5>
                     \ :w<cr>:! mdr --number-sections % &<cr>
@@ -442,15 +462,7 @@ augroup filetype_markdown
                     \   --to=docx --reference-docx=%:h/template.docx
                     \   --output=%:r.docx %<cr>:!xdg-open %:r.docx &<cr>
     endif
-    if has('win32unix') || has('win32') || has('win64')
-        autocmd Filetype markdown nnoremap <buffer> <F6>
-                    \ :w<cr>:!pandoc
-                    \   --to=docx --output=%:r.docx %<cr>:!start %:r.docx<cr>
-        autocmd FileType markdown nnoremap <buffer> <f7>
-                    \ :w<cr>:!pandoc
-                    \   --to=docx --reference-docx=%:h/template.docx
-                    \   --output=%:r.docx %<cr>:!start %:r.docx<cr>
-    endif
+
 augroup END
 " }}}
 " Autocommands, python {{{
