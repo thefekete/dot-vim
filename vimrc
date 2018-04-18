@@ -481,8 +481,8 @@ augroup filetype_markdown
                 \ norelativenumber
                 \ autoindent
                 \ foldmethod=expr
-                \ foldexpr=GetMarkdownFold(v:lnum)
-                \ foldcolumn=2
+                \ foldexpr=GetMarkdownFoldNested(v:lnum)
+                \ foldcolumn=4
 
     " remap j/k keys to go down displayed lines (useful with wrapped lines)
     autocmd Filetype markdown noremap <buffer> j gj
@@ -715,19 +715,28 @@ function! CHSwap()  "{{{2
         echoerr "Not source or header file, not sure what to do here"
     endif
 endfunction  " }}}2
-function! GetMarkdownFold(lnum)  "{{{2
+function! GetMarkdownFoldFlat(lnum)  "{{{2
     if getline(a:lnum) =~? '\v^\s*$'
         return '='
-    "elseif getline(a:lnum) =~? '\v^######'
-    "    return '>6'
-    "elseif getline(a:lnum) =~? '\v^#####'
-    "    return '>5'
-    "elseif getline(a:lnum) =~? '\v^####'
-    "    return '>4'
-    "elseif getline(a:lnum) =~? '\v^###'
-    "    return '>3'
-    "elseif getline(a:lnum) =~? '\v^##'
-    "    return '>2'
+    elseif getline(a:lnum) =~? '\v^#'
+        return '>1'
+    else
+        return '='
+    endif
+endfunction  "}}}2
+function! GetMarkdownFoldNested(lnum)  "{{{2
+    if getline(a:lnum) =~? '\v^\s*$'
+        return '='
+    elseif getline(a:lnum) =~? '\v^######'
+        return '>6'
+    elseif getline(a:lnum) =~? '\v^#####'
+        return '>5'
+    elseif getline(a:lnum) =~? '\v^####'
+        return '>4'
+    elseif getline(a:lnum) =~? '\v^###'
+        return '>3'
+    elseif getline(a:lnum) =~? '\v^##'
+        return '>2'
     elseif getline(a:lnum) =~? '\v^#'
         return '>1'
     else
