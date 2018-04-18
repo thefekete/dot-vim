@@ -464,6 +464,29 @@ augroup filetype_markdown
     endif
 augroup END
 " }}}
+" Autocommands, openscad {{{
+augroup filetype_openscad
+    autocmd!
+    autocmd filetype openscad setlocal
+                \ foldmethod=marker
+                \ foldmarker={,}
+		\ foldnestmax=3
+                \ foldlevelstart=99
+                \ cindent
+		\ tabstop=2
+		\ softtabstop=2
+		\ shiftwidth=2
+		\ expandtab
+                \ textwidth=79
+		\ number
+		\ relativenumber
+    
+    " open current file in openscad
+    autocmd FileType openscad nnoremap <buffer> <f5>
+                \ :w<cr>:!openscad % &<cr>
+
+augroup END
+" }}}
 " Autocommands, python {{{
 augroup filetype_python
     autocmd!
