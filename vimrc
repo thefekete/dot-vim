@@ -244,6 +244,31 @@ inoremap <c-u> <esc>viwUea
 " use jk for escape
 inoremap jk <esc>
 
+" use arrow keys for ascii box chars
+" TODO figure out less intrusive mappings (maybe with leader?)
+"inoremap <up><down> │
+"inoremap <down><up> │
+"inoremap <left><right> ─
+"inoremap <right><left> ─
+"inoremap <right><down> ┌
+"inoremap <down><right> ┌
+"inoremap <left><down> ┐
+"inoremap <down><left> ┐
+"inoremap <up><right> └
+"inoremap <right><up> └
+"inoremap <up><left> ┘
+"inoremap <left><up> ┘
+"inoremap <up><down><left> ┤
+"inoremap <down><up><left> ┤
+"inoremap <up><down><right> ├
+"inoremap <down><up><right> ├
+"inoremap <left><right><down> ┬
+"inoremap <right><left><down> ┬
+"inoremap <left><right><up> ┴
+"inoremap <right><left><up> ┴
+"inoremap <up><down><left><right> ┼
+"inoremap <left><right><up><down> ┼
+
 " }}}
 " Mappings, Visual mode {{{
 
