@@ -2,8 +2,12 @@
 " Got a lot of good info from: http://dougblack.io/words/a-good-vimrc.html
 " Tim Pope's vim-sensible plugin has some interesting defaults
 
+" TODO try out easytags plugin
+" TODO generate tags files for standard libs (c, python, etc)
+
 " pathogen  {{{
 
+" TODO ditch pathogen and start using packages
 execute pathogen#infect()
 
 " }}}
@@ -389,7 +393,6 @@ augroup END
 augroup filetype_gedarc
     autocmd!
 
-    " c/c++/arduino autocmds - autoformat with astyle, fold by syntax
     autocmd BufNewFile,BufRead *.gEDA/*rc setlocal
                 \ filetype=scheme
 
@@ -398,7 +401,6 @@ augroup END
 " }}}
 " Autocommands, html/css {{{
 
-" settings for makefiles
 augroup filetype_html
     autocmd!
     autocmd Filetype html,css setlocal
@@ -414,11 +416,9 @@ augroup END
 " }}}
 " Autocommands, make {{{
 
-" settings for makefiles
 augroup filetype_make
     autocmd!
-    autocmd Filetype make setlocal
-                \ list
+    "autocmd Filetype make setlocal list
 augroup END
 
 " }}}
