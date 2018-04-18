@@ -3,3 +3,4 @@ archive/
 tags
 **/*.un~
 **/*.swp
+bundle/*/
