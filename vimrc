@@ -487,6 +487,31 @@ augroup filetype_openscad
 
 augroup END
 " }}}
+" Autocommands, plantuml {{{
+
+augroup filetype_plantuml
+    autocmd!
+
+    if has('win32unix') || has('win32') || has('win64')
+        " TODO add rendering for win
+    elseif has('unix')
+        " render and display png
+        autocmd Filetype plantuml nnoremap <buffer> gr
+                    \ :w<cr>
+                    \ :!cd %:p:h
+                    \   && cat %:p
+                    \   \| plantuml -pipe
+                    \   \| feh -F -
+                    \   <cr>
+        " attempt to render in ansi-art
+        autocmd Filetype plantuml nnoremap <buffer> gR
+                    \ :w<cr>:!cd %:p:h && cat %:t \|
+                    \ plantuml -pipe -utxt \| less -S<cr>
+    endif
+
+augroup END
+
+" }}}
 " Autocommands, python {{{
 augroup filetype_python
     autocmd!
