@@ -488,18 +488,6 @@ augroup filetype_markdown
     autocmd Filetype markdown noremap <buffer> j gj
     autocmd Filetype markdown noremap <buffer> k gk
 
-    if has('unix')
-        " write and open in browser
-        autocmd Filetype markdown nnoremap <buffer> <F5>
-                    \ :w<cr>:! mdr --number-sections % &<cr>
-        autocmd Filetype markdown nnoremap <buffer> <F6>
-                    \ :w<cr>:!pandoc
-                    \   --to=odt --output=%:r.odt %<cr>:!xdg-open %:r.odt &<cr>
-        autocmd FileType markdown nnoremap <buffer> <f7>
-                    \ :w<cr>:!pandoc
-                    \   --to=docx --reference-docx=%:h/template.docx
-                    \   --output=%:r.docx %<cr>:!xdg-open %:r.docx &<cr>
-    endif
     if has('win32unix') || has('win32') || has('win64')
         autocmd Filetype markdown nnoremap <buffer> <F6>
                     \ :w<cr>:!pandoc
@@ -508,6 +496,22 @@ augroup filetype_markdown
                     \ :w<cr>:!pandoc
                     \   --to=docx --reference-docx=%:h/template.docx
                     \   --output=%:r.docx %<cr>:!start %:r.docx<cr>
+    elseif has('unix')
+        " write and open in browser
+        autocmd Filetype markdown nnoremap <buffer> <F5>
+                    \ :w<cr>:! mdr --number-sections % &<cr>
+        autocmd Filetype markdown nnoremap <buffer> <F6>
+                    \ :w<cr>:!pandoc --to=odt --output=%:r.odt
+                    \   $(test -f "%:h/template.odt"
+                    \       && echo "--reference-odt=%:h/template.odt")
+                    \   %
+                    \   && xdg-open %:r.odt & <cr>
+        autocmd FileType markdown nnoremap <buffer> <f7>
+                    \ :w<cr>:!pandoc --to=docx --output=%:r.docx
+                    \   $(test -f "%:h/template.docx"
+                    \       && echo "--reference-docx=%:h/template.docx")
+                    \   %
+                    \   && xdg-open %:r.docx & <cr>
     endif
 augroup END
 " }}}
