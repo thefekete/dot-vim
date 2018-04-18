@@ -583,7 +583,7 @@ augroup filetype_python
                 \ autoindent
 
     autocmd FileType python nnoremap <buffer> <f5>
-                \ :w<cr>:!clear; python3.6 %<cr> 
+                \ :w<cr>:! clear && python3.6 %<cr>
 
     " run doctests for current file
     autocmd FileType python nnoremap <buffer> <f6>
