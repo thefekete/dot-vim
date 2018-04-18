@@ -403,8 +403,16 @@ augroup filetype_dot
 
     " TODO implement dot file rendering
     " FIXME windows specific
-    autocmd FileType dot nnoremap <buffer> gd
-                \ :w<cr>:!dot -Tpng % -o %.png && start %.png<cr>
+    if has('win32unix') || has('win32') || has('win64')
+        autocmd FileType dot nnoremap <buffer> gr
+                    \ :w<cr>
+                    \ :!dot -Tpng % -o %:r.png
+                    \   && start %:r.png
+                    \   <cr>
+    else
+        autocmd FileType dot nnoremap <buffer> gr
+                    \ :w<cr>:! dot -Tpng % \| feh -F - <cr>
+    endif
 
 augroup END
 " }}}
