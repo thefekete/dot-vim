@@ -143,6 +143,10 @@ if has('win32unix') || has('win32') || has('win64')
     set backspace=2
 endif
 
+" insert format for c assertions at start
+" overrides a bad format already there
+let &errorformat = "%*[^:]:\ %f:%l:\ %m," . &errorformat
+
 "autocmd! bufwritepost .vimrc source ~/.vimrc         " reload vimrc when saved
 
 " }}}
